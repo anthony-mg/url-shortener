@@ -15,7 +15,8 @@ export const Renderer = jsxRenderer(({ children }) => {
         <link rel="stylesheet" href="/styles.css" />
         <title>ANTSH - URLs but smaller</title>
       </head>
-      <body>
+      <body class="flex">
+        <h2>ANTSH -- Shorter URLs</h2>
         <main class="container">${children}</main>
       </body>
     </html>
@@ -25,7 +26,6 @@ export const Renderer = jsxRenderer(({ children }) => {
 export const Form = ({ short_url, errors }: { short_url: ShortUrl; errors: FormError }) => (
   <form hx-post="/url" hx-swap="outerHTML" id="form">
     <div>
-      <label for="url">URL</label>
       <input
         autocomplete="off"
         aria-invalid={errors.url ? true : ""}
@@ -36,18 +36,17 @@ export const Form = ({ short_url, errors }: { short_url: ShortUrl; errors: FormE
       />
     </div>
     <div hx-target="form" hx-swap="outerHTML">
-      <label label htmlFor="slug">
-        slug /
-      </label>
-      <input
-        autocomplete="off"
-        aria-invalid={errors.slug ? true : ""}
-        hx-post="/url/validate"
-        type="text"
-        name="slug"
-        placeholder="your cool slug"
-        value={short_url.slug}
-      />
+      <div class="group" role="group">
+        <input
+          autocomplete="off"
+          aria-invalid={errors.slug ? true : ""}
+          hx-post="/url/validate"
+          type="text"
+          name="slug"
+          placeholder="your cool /slug (Ex: cool --> antsh.one/cool)"
+          value={short_url.slug}
+        />
+      </div>
     </div>
     <div className={errors.url ? "pico-color-red-500" : ""}>{errors.url}</div>
     <div className={errors.slug ? "pico-color-red-500" : ""}>{errors.slug}</div>
@@ -56,8 +55,8 @@ export const Form = ({ short_url, errors }: { short_url: ShortUrl; errors: FormE
 );
 
 export const Confirmed = ({ short_url }: { short_url: ShortUrl }) => (
-  <section>
+  <section class="flex">
     Success! Your short url is:
-    <div>{short_url.url}</div>
+    <button class="outline secondary">{short_url.url}</button>
   </section>
 );

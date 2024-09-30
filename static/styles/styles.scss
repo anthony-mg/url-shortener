@@ -1,0 +1,63 @@
+@use "pico" with (
+  $enable-semantic-container: false,
+  $enable-classes: true,
+  $modules: (
+    "content/code": false,
+    "forms/input-color": false,
+    "forms/input-date": false,
+    "forms/input-file": false,
+    "forms/input-range": false,
+    "forms/input-search": false,
+    "components/accordion": false,
+    "components/card": false,
+    "components/dropdown": false,
+    "components/loading": false,
+    "components/modal": false,
+    "components/nav": false,
+    "components/progress": false,
+    "components/tooltip": false,
+    "utilities/accessibility": false,
+    "utilities/reduce-motion": false,
+  ),
+  // theme
+  $theme-color: "amber",
+  // Breakpoints, viewports and root font sizes
+  $breakpoints:
+    (
+      // Small (landscape phones)
+      // Font size: 17px
+      sm: (breakpoint: 576px, viewport: 510px, root-font-size: 106.25%),
+      // Medium (tablets)
+      // Font size: 18px
+      md: (breakpoint: 768px, viewport: 700px, root-font-size: 112.5%, padding: 20px),
+      // Large
+      // Font size: 19px
+      lg: (breakpoint: 1024px, viewport: 700px, root-font-size: 112.5%, padding: 20px),
+      // Extra large
+      // Font size: 20px
+      xl: (breakpoint: 1280px, viewport: 700px, root-font-size: 112.5%, padding: 20px),
+      // Extra extra large
+      // Font size: 21px
+      xxl: (breakpoint: 1536px, viewport: 700px, root-font-size: 112.5%, padding: 20px),
+    )
+);
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-image: url("/blob-scene-haikei.svg");
+  background-size: cover; /* or contain, depending on how you want it to fit */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.flex {
+  height: 100%;
+  padding: auto;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

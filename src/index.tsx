@@ -46,6 +46,7 @@ app.post("/url", async (c) => {
     slug = nanoid();
   }
   try {
+    slug = slug.toLowerCase();
     createURL(url, slug);
   } catch (error) {
     errors = { slug: "slug in use, pick another" };
