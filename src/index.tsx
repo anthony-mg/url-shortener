@@ -8,9 +8,12 @@ import { createURL, getURL } from "@/db/url";
 import { ShortUrl } from "@/types/URL";
 import { FormError } from "@/types/form";
 import { z, ZodError } from "zod";
-import { zValidator } from "@hono/zod-validator";
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 6);
-
+declare module "bun" {
+  interface Env {
+    PORT: string;
+  }
+}
 const app = new Hono();
 export const customLogger = (message: string, ...rest: string[]) => {
   console.log(message, ...rest);
@@ -26,7 +29,7 @@ const schema = z.object({
     .url({ message: "Invalid URL format. Please include http:// or https://." }),
   slug: z
     .string()
-    .regex(/^[a-zA-Z0-9]+$/, { message: "Invalid slug. Only alphanumeric (a-z, 0-9 is accepted)" })
+    .regex(/^[a-zA-Z0-9]+$/, { message: "Invalid slug. Only alphanumeric (only a-z, 0-9 is accepted)" })
     .or(z.literal("")),
 });
 
@@ -40,16 +43,17 @@ app.get("/", (c) => {
 
 app.get("/:slug", (c) => {
   let slug = c.req.param("slug");
-  return c.text(slug);
-
-  //TODO: get url from db, redirect to url
+  let url: string = getURL(slug);
+  if (url === "") {
+    return c.html(<Error />);
+  }
+  return c.redirect(url);
 });
 
 app.post("/url", async (c) => {
   const body = await c.req.parseBody();
   const url = typeof body["url"] === "string" ? body["url"] : "";
-  let slug = typeof body["slug"] === "string" ? body["slug"] : "";
-  slug = slug.toLowerCase();
+  let slug = typeof body["slug"] === "string" ? body["slug"].toLowerCase() : "";
   let short_url: ShortUrl = { url, slug };
   let errors: FormError = {};
 
@@ -65,10 +69,12 @@ app.post("/url", async (c) => {
     return c.html(<Form short_url={short_url} errors={errors} />);
   }
 
+  //if user did not provide a slug, create one
   if (!slug) {
     slug = nanoid();
     short_url.slug = slug;
   }
+  //try adding to db
   try {
     createURL(url, slug);
   } catch (error) {
@@ -92,4 +98,7 @@ app.post("/url/validate", async (c) => {
   return c.html(<Form short_url={new_url} errors={{}} />);
 });
 
-export default app;
+export default {
+  port: parseInt(process.env.PORT) || 3000,
+  fetch: app.fetch,
+};
