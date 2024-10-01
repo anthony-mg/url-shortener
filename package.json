@@ -2,7 +2,8 @@
   "name": "url-shortener",
   "scripts": {
     "dev": "bun run --hot src/index.tsx",
-    "build-css": "sass --load-path=node_modules/@picocss/pico/scss/ static/styles/styles.scss static/styles/styles.css"
+    "build-css": "sass --load-path=node_modules/@picocss/pico/scss/ static/styles/styles.scss static/styles/styles.css",
+    "start": "bun run src/index.tsx"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.3.0",
