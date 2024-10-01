@@ -5,11 +5,13 @@
     "build-css": "sass --load-path=node_modules/@picocss/pico/scss/ static/styles/styles.scss static/styles/styles.css"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.3.0",
     "@picocss/pico": "^2.0.6",
     "dotenv": "^16.4.5",
     "hono": "^4.6.3",
     "nanoid": "^5.0.7",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/bun": "latest"

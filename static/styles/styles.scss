@@ -1,3 +1,4 @@
+@use "colors" as *;
 @use "pico" with (
   $enable-semantic-container: false,
   $enable-classes: true,
@@ -20,7 +21,7 @@
     "utilities/reduce-motion": false,
   ),
   // theme
-  $theme-color: "amber",
+  $theme-color: "sand",
   // Breakpoints, viewports and root font sizes
   $breakpoints:
     (
@@ -47,10 +48,13 @@ body {
 }
 body {
   margin: 0;
-  background-image: url("/blob-scene-haikei.svg");
+  background-image: url("/img/bg-lg.svg");
   background-size: cover; /* or contain, depending on how you want it to fit */
   background-repeat: no-repeat;
   background-position: center;
+  @media (max-width: #{map-get(map-get(pico.$breakpoints, lg), breakpoint)}) {
+    background-image: url("/img/bg-sm.svg");
+  }
 }
 .flex {
   height: 100%;
@@ -60,4 +64,9 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+h1,
+h2 {
+  color: $sand-200;
 }
