@@ -15,16 +15,18 @@ export const Renderer = jsxRenderer(({ children }) => {
         <link rel="stylesheet" href="/styles/styles.css" />
         <title>ANTSH - URLs but shorter</title>
       </head>
-      <body class="flex">
-        <h2>ANTSH -- Shorter URLs</h2>
-        <main class="container">${children}</main>
+      <body>
+        <div class="flex" hx-target="this" hx-swap="innerHTML" class="container">
+          <h2>ANTSH -- Shorter URLs</h2>
+          ${children}
+        </div>
       </body>
     </html>
   `;
 });
 
 export const Form = ({ short_url, errors }: { short_url: ShortUrl; errors: FormError }) => (
-  <form hx-post="/url" hx-swap="outerHTML" id="form">
+  <form hx-post="/url" id="form">
     <input
       autocomplete="off"
       aria-invalid={errors.url ? true : ""}
@@ -51,8 +53,17 @@ export const Form = ({ short_url, errors }: { short_url: ShortUrl; errors: FormE
 export const Confirmed = ({ short_url }: { short_url: ShortUrl }) => (
   <section class="flex">
     Success! Your short url is:
-    <button class="outline secondary">antsh.one/{short_url.slug}</button>
+    <button class="item outline secondary">antsh.one/{short_url.slug}</button>
   </section>
 );
 
-export const Error = () => <div>error</div>;
+export const Error = ({ message = "" }: { message: string }) => (
+  <div>
+    <div class="flex">
+      {message}
+      <button class="item" hx-get="/" hx-push-url="true">
+        Return
+      </button>
+    </div>
+  </div>
+);

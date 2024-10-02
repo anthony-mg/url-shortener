@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { requestId } from "hono/request-id";
 import { serveStatic } from "hono/bun";
 import { Renderer, Form, Confirmed, Error } from "./components/components";
 import { customAlphabet } from "nanoid";
@@ -19,9 +18,8 @@ export const customLogger = (message: string, ...rest: string[]) => {
   console.log(message, ...rest);
 };
 app.use(logger(customLogger));
-app.use("*", requestId({ limitLength: 1 }));
 app.use("*", serveStatic({ root: "./static" }));
-app.get("*", Renderer);
+app.use("*", Renderer);
 
 const schema = z.object({
   url: z
@@ -45,7 +43,7 @@ app.get("/:slug", (c) => {
   let slug = c.req.param("slug");
   let url: string = getURL(slug);
   if (url === "") {
-    return c.html(<Error />);
+    return c.render(<Error message="URL not found"></Error>);
   }
   return c.redirect(url);
 });
@@ -60,7 +58,7 @@ app.post("/url", async (c) => {
   try {
     schema.parse(short_url);
   } catch (error) {
-    if (!(error instanceof ZodError)) return c.html(<Error short_url={short_url}></Error>);
+    if (!(error instanceof ZodError)) return c.html(<Error message={"Validation error"}></Error>);
 
     let issues = error.errors;
     console.log(issues);

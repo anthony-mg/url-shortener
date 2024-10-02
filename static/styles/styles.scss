@@ -63,9 +63,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-content: center;
   flex-direction: column;
 }
-
+.main-container {
+  min-height: 210px;
+}
+.item {
+  margin: 5px;
+}
 h1,
 h2 {
   color: $sand-200;
