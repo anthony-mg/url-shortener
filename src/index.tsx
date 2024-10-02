@@ -43,7 +43,7 @@ app.get("/:slug", (c) => {
   let slug = c.req.param("slug");
   let url: string = getURL(slug);
   if (url === "") {
-    return c.render(<Error message="URL not found"></Error>);
+    return c.html(<Error message="URL not found"></Error>);
   }
   return c.redirect(url);
 });

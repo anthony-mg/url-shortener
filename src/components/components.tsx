@@ -16,9 +16,9 @@ export const Renderer = jsxRenderer(({ children }) => {
         <title>ANTSH - URLs but shorter</title>
       </head>
       <body>
-        <div class="flex" hx-target="this" hx-swap="innerHTML" class="container">
+        <div class="flex">
           <h2>ANTSH -- Shorter URLs</h2>
-          ${children}
+          <div hx-target="this" hx-swap="innerHTML" class="container">${children}</div>
         </div>
       </body>
     </html>
@@ -59,11 +59,6 @@ export const Confirmed = ({ short_url }: { short_url: ShortUrl }) => (
 
 export const Error = ({ message = "" }: { message: string }) => (
   <div>
-    <div class="flex">
-      {message}
-      <button class="item" hx-get="/" hx-push-url="true">
-        Return
-      </button>
-    </div>
+    <div class="flex">{message}</div>
   </div>
 );
