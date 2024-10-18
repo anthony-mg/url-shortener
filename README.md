@@ -10,7 +10,7 @@
 
 <!-- PROJECT LOGO -->
 
-<h2 align="center">Url Shorterner</h2>
+<h2 align="center">Url Shortener</h2>
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -35,11 +35,11 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/anthony-mg/url-shorterner.git
+   git clone https://github.com/anthony-mg/url-shortener.git
    ```
 2. Install NPM packages
    ```sh
-   cd url-shorterner
+   cd url-shortener
    ```
    ```sh
    bun install
