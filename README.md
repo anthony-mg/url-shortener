@@ -35,11 +35,11 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/anthony-mg/OnlineWhiteboard.git
+   git clone https://github.com/anthony-mg/url-shorterner.git
    ```
 2. Install NPM packages
    ```sh
-   cd OnlineWhiteboard
+   cd url-shorterner
    ```
    ```sh
    bun install
