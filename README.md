@@ -10,7 +10,7 @@
 
 <!-- PROJECT LOGO -->
 
-<h2 align="center">Online Whiteboard</h2>
+<h2 align="center">Url Shorterner</h2>
 </div>
 
 <!-- ABOUT THE PROJECT -->
